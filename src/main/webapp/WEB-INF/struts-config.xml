@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd" >
+<struts-config>
+	<form-beans>
+		<form-bean name="loginForm" type="org.apache.struts.action.DynaActionForm">
+			<form-property name="userid"  type="java.lang.String"></form-property>
+			<form-property name="userpassword"  type="java.lang.String"></form-property>
+		</form-bean>
+		
+		<form-bean name="userInfoForm" type="com.ek.hibernate.struts.form.UserInfoForm"></form-bean>
+	</form-beans>
+	
+	
+	
+	<global-exceptions></global-exceptions>
+	<global-forwards></global-forwards>
+	
+	
+	
+	<action-mappings>
+		<action path="/index" forward="indextiles"></action>
+	
+		<action path="/login" 
+			attribute="loginForm" 
+			name="loginForm" 
+			scope="request"
+			type="com.ek.hibernate.struts.action.LoginAction" 
+			input="/common/top.jsp">
+			<forward name="indexpage" path="indextiles" redirect="true"></forward> <!-- path 指向的是tiles-defs.xml中配的 -->
+		</action>
+		
+		<action path="/logout"
+					 type="com.ek.hibernate.struts.action.LogoutAction">
+					 <forward name="indexpage" path="indextiles" redirect="true"></forward> 
+		</action>
+		
+		<action path="/userinfo" 
+					 attribute="userInfoForm" 
+					 name="userInfoForm"  
+					 input="regpage"
+					 parameter="method"
+					 scope="request" 
+					 type="com.ek.hibernate.struts.action.UserInfoAction">
+					 <forward name="indexpage" path="indextiles" redirect="true"></forward> 
+		</action>
+	
+	</action-mappings>
+	
+	
+	
+	<message-resources parameter="ApplictionResources"></message-resources>
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<set-property property="definitions-config"  value="/WEB-INF/tiles-defs.xml"/>
+	</plug-in>
+	
+</struts-config>

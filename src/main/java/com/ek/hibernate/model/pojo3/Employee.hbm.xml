@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-24 13:24:48 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo3.Employee"   discriminator-value="none"  table="employee"  catalog="hibernate_db">
+        <id name="uuid" type="java.lang.Integer">
+            <column name="uuid" />
+            <generator class="identity" />
+        </id>
+        
+        <discriminator column="emplyee_type" type="string"></discriminator>
+        
+        
+        <property name="username" type="java.lang.String">
+            <column name="username" length="20" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="sex" length="1" />
+        </property>
+        <property name="birthday" type="java.util.Date">
+            <column name="birthday" length="19" />
+        </property>
+       
+        <!-- 这个就不能让允许用户操作了 要cut掉 pojo里也要cut 通过下面的两个<subclass来操作
+        <property name="emplyeeType" type="java.lang.String">
+            <column name="emplyee_type" length="10" />
+        </property>
+         -->
+        <!-- 把这连个配置到 subclass里 这里是POJO的继承 
+        <property name="hasChild" type="java.lang.String">
+            <column name="hasChild" length="1" />
+        </property>
+        <property name="isMarried" type="java.lang.String">
+            <column name="isMarried" length="1" />
+        </property>
+        -->
+         
+      	<!-- 上面有一个鉴别器 配置了需要的数据库列  <discriminator  -->
+      	<!-- 给这个辨别器设置值 <class name="com.ek.hibernate.model.pojo3.Employee"   discriminator-value="none"  -->
+        <subclass name="com.ek.hibernate.model.pojo3.EmployeeManager" discriminator-value="manager">
+        	 <property name="hasChild" type="java.lang.String">
+            	<column name="hasChild" length="1" />
+        	</property>
+        </subclass>
+         <subclass name="com.ek.hibernate.model.pojo3.EmployeeCommon" discriminator-value="common">
+         	<property name="isMarried" type="java.lang.String">
+            	<column name="isMarried" length="1" />
+       		</property>
+        </subclass>
+        
+        
+        
+    </class>
+</hibernate-mapping>

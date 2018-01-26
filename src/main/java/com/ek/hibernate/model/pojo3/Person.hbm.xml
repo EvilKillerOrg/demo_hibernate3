@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-22 18:24:23 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo3.Person" table="person" catalog="hibernate_db">
+        <id name="uuid" type="java.lang.Integer">
+            <column name="uuid" />
+            <generator class="native" />
+        </id>
+        
+        
+        <component name="name"  class="com.ek.hibernate.model.pojo3.Name">
+        	<property name="inital" type="java.lang.String">
+            	<column name="inital" length="50" />
+        	</property>
+        	<property name="firstname" type="java.lang.String">
+            	<column name="firstname" length="20" />
+        	</property>
+        	<property name="lastname" type="java.lang.String">
+            	<column name="lastname" length="20" />
+        	</property>
+        </component>
+        
+        
+        <property name="sex" type="java.lang.Integer">
+            <column name="sex" />
+        </property>
+        <property name="birthday" type="java.util.Date">
+            <column name="birthday" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

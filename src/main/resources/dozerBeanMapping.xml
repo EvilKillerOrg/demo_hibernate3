@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mappings PUBLIC "-//DOZER//DTD MAPPINGS//EN" "http://dozer.sourceforge.net/dtd/dozerbeanmapping.dtd" >
+<mappings>
+	<configuration>
+		<stop-on-errors>true</stop-on-errors>
+		<date-format>yyyy-MM-dd</date-format>
+	</configuration>
+	<mapping>
+		<class-a>com.ek.hibernate.struts.form.UserInfoForm</class-a>
+		<class-b>com.ek.hibernate.model.pojo.Userinfo</class-b>
+	</mapping>
+</mappings>

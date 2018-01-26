@@ -1,0 +1,76 @@
+
+
+
+
+
+cascade="save-update,delete"  的设置决定是否进行级联操作
+
+
+
+
+
+inverse是hibernate双向关系中的基本概念。
+inverse的真正作用就是指定由哪一方来维护之间的关联关系。
+当一方中指定了“inverse=false”（默认），那么那一方就有责任负责之间的关联关系，说白了就是hibernate如何生成Sql来维护关联的记录
+
+
+
+
+
+saveOrUpdate
+默认:有id修改,没有id保存 , 如果设置<id unsaved-value="" 由这个参数决定是save还是update 如果有version由version决定
+如果我们不使用unsaved-value属性，则unsaved-value默认为null,也就是说我们新建一个customer对象，如果其id为空，则进行插入，如果不为空，则进行更新，这符合逻辑（id策略为assigened除外，因为必须手动设置id）
+
+
+
+
+
+fetch & lazy
+fetch指定关联对象抓取的方式，
+可以设置fetch = "select" 和 fetch = "join"。
+select方式 : 时先查询返回要查询的主体对象（列表），再根据关联外键id，每一个对象发一个select查询，获取关联的对象，形成n+1次查询；
+join方式 : 主体对象和关联对象用一句外键关联的sql同时查询出来，不会形成多次查询。
+
+在映射文档中定义的抓取策略将会有产生以下影响：
+(1) 通过get()或load()方法取得数据。
+(2) 只有在关联之间进行导航时，才会隐式的取得数据(延迟抓取)。
+(3) 在映射文档中显式的声明连接抓取做为抓取策略并不会影响到随后的HQL查询。
+
+通常情况下，我们并不使用映射文档进行抓取策略的定制。更多的是，保持其默认值，然后在特定的事务中， 使用HQL的左连接抓取（left join fetch） 对其进行重载。这将通知 Hibernate在第一次查询中使用外部关联（outer join），直接得到其关联数据。 在条件查询 API中，应该调用 setFetchMode(FetchMode.JOIN)语句。
+
+用一对多来举例：
+fetch = "select"是在查询的时候先查询出一端的实体，然后在根据一端的查询出多端的实体，会产生1+n条sql语句;
+fetch = "join"是在查询的时候使用外连接进行查询，不会差生1+n的现象。
+
+lazy大家应该都熟悉了,就是延迟加载,
+可以设置lazy = "true" , lazy = "false" lazy = "proxy" 。
+在HQL查询中,配置文件中设置的join方式是不起作用的（而在所有其他查询方式如get、criteria或再关联获取等等都是有效的），会使用select方式，除非你在HQL中指定join fetch某个关联对象。
+
+lazy 和fetch配合使用：
+1、当lazy="true" fetch = "select" 的时候 ， 这个时候是使用了延迟策略，开始只查询出一端实体，多端的不会查询，只有当用到的时候才会发出sql语句去查询 ；
+2、当lazy="false" fetch = "select" 的时候 ， 这个时候是使没有用延迟策略，同时查询出一端和多端，同时产生1+n条sql.
+3、当lazy="true"/lazy="false" fetch = "join"的时候，自己认为这个时候延迟已经没有什么用了，因为采用的是外连接查询，同时把一端和多端都查询出来了，延迟没有起作用。
+迫切的左外连接检索 就是fetch = "join"的时候 没有懒惰的可能性 或者 HQL 写了 left join fetch
+
+
+
+
+
+用get方法查询时,程序立即去访问数据库(实际上是先去一级缓存session中查询,没有发现的话再去二级缓存,再没有的话才去访问数据库),
+用load方法查询时,load并未立即去访问数据库,他先是返回了一个Book的代理对象,当你真正要用到Book中信息时,才去访问数据库.
+load支持延迟加载,get不支持延迟加载,当然如果设置了lazy=false,get和load都会直接去访问数据库,都变成即时加载.
+
+get/load方法还有一个很重要的区别就是:
+　load方式检索不到的话会抛出org.hibernate.ObjectNotFoundException异常
+　get方法检索不到的话会返回null
+
+使用load：
+如果类级别的lazy被设置为true，那么会返回代理对象，调用出getId之外的任何方法时，在实际抓取。
+如果类级别的lzay被设置为false，那么会立即查询，并返回实际对象。不会返回代理对象。
+使用get：
+不管lazy设置为何，立即抓取，不会返回代理对象。
+值得注意的是，即使已经实际抓取对象，但如果该对象的有集合属性，那么默认返回的仍然是代理集合类。不管是get还是load。
+
+ 
+ 
+ 

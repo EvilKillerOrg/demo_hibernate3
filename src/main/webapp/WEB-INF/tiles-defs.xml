@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 1.3//EN" "http://struts.apache.org/dtds/tiles-config_1_3.dtd" >
+<component-definitions>
+  <definition name="indextiles" page="/common/layout.jsp">
+  	<put name="top">/common/top.jsp</put>
+  	<put name="main">/main.jsp</put>
+  	<put name="left">/common/left.jsp</put>
+  	<put name="footer">/common/footer.jsp</put>
+  </definition>
+  <definition name="regpage" extends="indextiles">
+  	<put name="main">/register.jsp</put>
+  </definition>
+</component-definitions>

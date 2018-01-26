@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-12 23:17:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo.Bookinfo" table="bookinfo" catalog="hibernate_db">
+        <id name="isbn" type="java.lang.String">
+            <column name="ISBN" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="bookname" type="java.lang.String">
+            <column name="BOOKNAME" length="20" not-null="true" />
+        </property>
+        <property name="author" type="java.lang.String">
+            <column name="AUTHOR" length="20" not-null="true" />
+        </property>
+        <property name="printaddress" type="java.lang.String">
+            <column name="PRINTADDRESS" length="30" not-null="true" />
+        </property>
+        <property name="price" type="java.lang.Double">
+            <column name="PRICE" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="sellprice" type="java.lang.Double">
+            <column name="SELLPRICE" precision="10" scale="0" />
+        </property>
+        <property name="printnumber" type="java.lang.Integer">
+            <column name="PRINTNUMBER" />
+        </property>
+        <property name="printdate" type="java.util.Date">
+            <column name="PRINTDATE" length="19" />
+        </property>
+        <property name="inbooknumber" type="java.lang.Integer">
+            <column name="INBOOKNUMBER" not-null="true" />
+        </property>
+        <property name="remainnumber" type="java.lang.Integer">
+            <column name="REMAINNUMBER" />
+        </property>
+        <property name="inbookdate" type="java.util.Date">
+            <column name="INBOOKDATE" length="19" />
+        </property>
+        <property name="bookimage" type="binary">
+            <column name="BOOKIMAGE" />
+        </property>
+        <property name="bookdescrption" type="java.lang.String">
+            <column name="BOOKDESCRPTION" length="50" />
+        </property>
+        <property name="booktype" type="java.lang.String">
+            <column name="BOOKTYPE" length="10" />
+        </property>
+        <set name="sellbooks" table="sellbook" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ISBN" length="20" />
+            </key>
+            <one-to-many class="com.ek.hibernate.model.pojo.Sellbook" />
+        </set>
+    </class>
+</hibernate-mapping>

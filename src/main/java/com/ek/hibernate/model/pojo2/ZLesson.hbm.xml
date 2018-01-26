@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-16 3:18:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo2.ZLesson" table="z_lesson" catalog="hibernate_db">
+        <id name="uuid" type="java.lang.Integer">
+            <column name="uuid" />
+            <generator class="identity" />
+        </id>
+        <property name="leName" type="java.lang.String">
+            <column name="le_name" length="20" />
+        </property>
+        <property name="hours" type="java.lang.Integer">
+            <column name="hours" />
+        </property>
+        
+        
+        <set name="zTeachers" cascade="save-update,delete"   table="z_teacher"  inverse="false"  lazy="true"  fetch="select"  sort="natural">
+            <key>
+                <column name="lesson_uuid" />
+            </key>
+            <!-- 一门课程对应多个老师 -->
+            <one-to-many class="com.ek.hibernate.model.pojo2.ZTeacher" />
+            <filter name="filterTeachers" >
+            	te_name like :myFilterParam
+            </filter>
+        </set>
+        
+        
+        <set name="zStudent"  table="z_student_lesson" cascade="save-update,delete"  inverse="false">
+            <key>
+                <column name="lesson_uuid" not-null="true"/>
+            </key>
+            <many-to-many column="student_uuid" class="com.ek.hibernate.model.pojo2.ZStudent" />
+        </set>
+    </class>
+    
+    
+    <!-- 定义过滤器 condition 是条件-->
+    <filter-def name="filterTeachers" >
+    	<filter-param name="myFilterParam" type="string"/>
+    </filter-def>
+</hibernate-mapping>

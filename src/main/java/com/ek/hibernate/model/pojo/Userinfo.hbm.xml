@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-12 23:17:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo.Userinfo" table="userinfo" catalog="hibernate_db">
+        <id name="userid" type="java.lang.String">
+            <column name="USERID" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="username" type="java.lang.String">
+            <column name="USERNAME" length="10" not-null="true" />
+        </property>
+        <property name="userpassword" type="java.lang.String">
+            <column name="USERPASSWORD" length="10" not-null="true" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="SEX" length="2" />
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="AGE" />
+        </property>
+        <property name="postalcode" type="java.lang.String">
+            <column name="POSTALCODE" length="6" not-null="true" />
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="ADDRESS" length="30" not-null="true" />
+        </property>
+        <property name="schoolage" type="java.lang.String">
+            <column name="SCHOOLAGE" length="10" />
+        </property>
+        <property name="personlike" type="java.lang.String">
+            <column name="PERSONLIKE" length="100" />
+        </property>
+        <property name="registerdate" type="java.util.Date">
+            <column name="REGISTERDATE" length="19" />
+        </property>
+        <property name="usertype" type="java.lang.String">
+            <column name="USERTYPE" length="10" />
+        </property>
+        <set name="sellbooks" table="sellbook" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USERID" length="10" />
+            </key>
+            <one-to-many class="com.ek.hibernate.model.pojo.Sellbook" />
+        </set>
+    </class>
+</hibernate-mapping>

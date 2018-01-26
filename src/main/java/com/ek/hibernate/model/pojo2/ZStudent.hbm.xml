@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-16 3:18:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo2.ZStudent" table="z_student" catalog="hibernate_db">
+        <id name="uuid" type="java.lang.Integer">
+            <column name="uuid" />
+            <generator class="identity" />
+        </id>
+        <property name="stName" type="java.lang.String">
+            <column name="st_name" length="20" />
+        </property>
+        <property name="stSex" type="java.lang.String">
+            <column name="st_sex" length="1" />
+        </property>
+        
+        <!-- 设置了 cascade 才能级联 cascade的 值可以查查文档 (通过学生把地址级联进入数据库)-->
+         <many-to-one name="zAddress"  cascade="save-update,delete"  class="com.ek.hibernate.model.pojo2.ZAddress" fetch="select">
+            <column name="address_uuid" unique="true" />
+        </many-to-one>
+        
+        
+        <set name="zLesson"  table="z_student_lesson" cascade="save-update,delete"  inverse="false">
+            <key>
+                <column name="student_uuid" not-null="true"/>
+            </key>
+            <many-to-many column="lesson_uuid" class="com.ek.hibernate.model.pojo2.ZLesson" />
+        </set>
+    </class>
+</hibernate-mapping>

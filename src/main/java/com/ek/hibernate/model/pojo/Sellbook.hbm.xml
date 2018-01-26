@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-12 23:17:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo.Sellbook" table="sellbook" catalog="hibernate_db">
+        <id name="uuid" type="java.lang.Integer">
+            <column name="UUID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bookinfo" class="com.ek.hibernate.model.pojo.Bookinfo" fetch="select">
+            <column name="ISBN" length="20" />
+        </many-to-one>
+        <many-to-one name="userinfo" class="com.ek.hibernate.model.pojo.Userinfo" fetch="select">
+            <column name="USERID" length="10" />
+        </many-to-one>
+        <property name="booknumber" type="java.lang.Integer">
+            <column name="BOOKNUMBER" not-null="true" />
+        </property>
+        <property name="summoney" type="java.lang.Double">
+            <column name="SUMMONEY" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="adddate" type="java.lang.String">
+            <column name="ADDDATE" length="20" not-null="true" />
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="REMARK" length="50" />
+        </property>
+        <property name="posted" type="java.lang.String">
+            <column name="POSTED" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

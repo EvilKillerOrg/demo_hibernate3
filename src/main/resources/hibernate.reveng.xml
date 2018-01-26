@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<type-mapping>
+		<sql-type jdbc-type="INTEGER"
+			hibernate-type="java.lang.Integer">
+		</sql-type>
+		<sql-type jdbc-type="VARCHAR"
+			hibernate-type="java.lang.String">
+		</sql-type>
+		<sql-type jdbc-type="TIMESTAMP"
+			hibernate-type="java.util.Date">
+		</sql-type>
+		<sql-type jdbc-type="CHAR" hibernate-type="java.lang.String">
+		</sql-type>
+	</type-mapping>
+	<table-filter match-name="bookinfo" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="sellbook" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="test_user_info"
+		match-catalog="hibernate_db" exclude="true">
+	</table-filter>
+	<table-filter match-name="userinfo" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="z_address" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="z_lesson" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="z_student" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="z_student_lesson"
+		match-catalog="hibernate_db" exclude="true">
+	</table-filter>
+	<table-filter match-name="z_teacher" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="employee" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="person" match-catalog="hibernate_db"
+		exclude="true">
+	</table-filter>
+	<table-filter match-name="test_annotation"
+		match-catalog="hibernate_db">
+	</table-filter>
+</hibernate-reverse-engineering>

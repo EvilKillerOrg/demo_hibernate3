@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-12 23:42:05 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo1.TestUserInfo" table="test_user_info" catalog="hibernate_db">
+    
+       <cache usage="read-only"/>
+       
+        <id name="uuid" type="java.lang.Integer" >
+            <column name="uuid" />
+            <generator class="identity" />
+        </id>
+        <property name="username" type="java.lang.String">
+            <column name="username" length="20" />
+        </property>
+        <property name="sex" type="java.lang.Boolean">
+            <column name="sex" length="1" />
+        </property>
+        <property name="birthday" type="java.util.Date">
+            <column name="birthday" length="19" />
+        </property>
+        
+        <property name="age">
+        	<formula>( YEAR(SYSDATE())-YEAR(birthday) )</formula>
+        </property>
+    <!-- 过滤器的具体实现 指定过滤器的条件 (定义在最下面) -->
+        <filter name="filterUserName">
+    		username like  :myFilterParam <!-- 条件 -->
+        </filter>
+    </class>
+
+    
+    <!-- native sql-query命名SQL查询 写死在这的 这返回的是userinfo对象类型-->
+        <sql-query name="selectUser">
+        	<return alias="u" class="com.ek.hibernate.model.pojo1.TestUserInfo"></return>
+        	select {u.*}
+        	from test_user_info u
+        </sql-query>
+        
+        
+    <!-- native sql-query命名SQL查询 写死在这的 这返回的是Object[]对象数组-->
+        <sql-query name="selectUserInfo">
+        	<return-scalar column="username" type="string"/>
+        	<return-scalar column="birthday" type="date"/>
+        	select * from test_user_info  
+        </sql-query>
+        
+        
+    <!-- HQL命名SQL查询 写死在这的 这返回的是Object[]对象数组-->
+        <query name="HQLUserInfo">
+        	<query-param name="username" type="string"/> 
+        	from TestUserInfo where username like :username
+        </query>
+        
+        
+    <!-- hibernate filter 过滤器的定义 -->
+        <filter-def name="filterUserName">
+    		<filter-param name="myFilterParam" type="string"/>    
+        </filter-def>
+    
+</hibernate-mapping>

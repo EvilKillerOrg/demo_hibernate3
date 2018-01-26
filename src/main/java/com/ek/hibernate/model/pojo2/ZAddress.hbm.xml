@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-16 3:18:52 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.ek.hibernate.model.pojo2.ZAddress" table="z_address" catalog="hibernate_db">
+        <id name="uuid" type="java.lang.Integer">
+            <column name="uuid" />
+            <generator class="identity" />
+        </id>
+        <property name="street" type="java.lang.String">
+            <column name="street" length="50" />
+        </property>
+        <property name="postcode" type="java.lang.String">
+            <column name="postcode" length="10" />
+        </property>
+        
+        <!--  
+        <set name="ZStudents" table="z_student" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="address_uuid" unique="true" />
+            </key>
+            <one-to-many class="com.ek.hibernate.model.pojo2.ZStudent" />
+        </set>
+        -->
+        
+        <one-to-one name="zStudent" property-ref="zAddress"></one-to-one>
+        <!-- zStudent 是  com.ek.hibernate.model.pojo2.ZAddress 中 ZStudent的属性名-->
+        <!-- zAddress 是  com.ek.hibernate.model.pojo2.ZStudent 中 ZAddress的属性名-->
+    </class>
+</hibernate-mapping>
